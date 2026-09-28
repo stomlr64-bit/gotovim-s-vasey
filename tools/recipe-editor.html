@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Добавить рецепт — Готовим с Васей</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f1e5;color:#2f241d;font:16px/1.5 system-ui,sans-serif}main{max-width:820px;margin:30px auto;padding:24px;background:#fffdf8;border:1px solid #e9ddc9;border-radius:20px}h1{line-height:1.15}label{display:block;font-weight:650;margin-top:18px}input,textarea{display:block;width:100%;padding:11px;margin-top:6px;font:inherit;border:1px solid #cdbfa8;border-radius:9px}textarea{min-height:110px}button{padding:13px 18px;border:0;border-radius:10px;background:#627b46;color:white;font:inherit;font-weight:700;cursor:pointer;margin-top:22px}small{font-weight:400;display:block;color:#75675d}.status{padding:12px;background:#f1eadc;border-radius:9px;overflow-wrap:anywhere}.row{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:600px){main{margin:10px;padding:18px}.row{grid-template-columns:1fr;gap:0}}a{color:#425b2b}
+</style>
+<main><h1>Добавить рецепт</h1>
+<p>Эта форма создаёт ZIP с дополнением для сайта. Она ничего не публикует и не меняет исходные файлы. Фотография в шапке не затрагивается.</p>
+<p>Сначала выбери <b>data/recipes.json</b> из своей последней копии сайта. Затем заполни рецепт и скачай дополнение. После распаковки перенеси папки <b>data</b> и <b>assets</b> в копию сайта с заменой файла рецептов. Прежнюю копию сохрани.</p>
+<label>Текущий файл рецептов<input id="catalog" type="file" accept=".json,application/json" required></label>
+<p id="status" class="status" role="status">Файл рецептов пока не выбран.</p>
+<form id="form">
+<label>Название *<input id="title" required maxlength="200"></label>
+<div class="row"><label>Категория *<input id="category" list="categories" required maxlength="100"><datalist id="categories"></datalist></label><label>Время приготовления<input id="time" maxlength="200"></label></div>
+<label>Картинка *<input id="image" type="file" accept="image/png,image/jpeg,image/webp" required><small>PNG, JPG или WebP, до 20 МБ. Исходное изображение сохраняется без изменений.</small></label>
+<label>Описание / комментарий<textarea id="description"></textarea></label>
+<label>Ингредиенты *<textarea id="ingredients" required placeholder="Каждый ингредиент — с новой строки"></textarea></label>
+<label>Шаги приготовления *<textarea id="steps" required placeholder="Каждый шаг — с новой строки, без нумерации"></textarea></label>
+<label>Совет<textarea id="tip"></textarea></label>
+<label>Слова для поиска<input id="tags" placeholder="курица, овощи, ужин"></label>
+<label>Файл карточки для скачивания<input id="download" type="file" accept=".png,.jpg,.jpeg,.webp,.pdf,.txt"><small>Необязательно. PNG, JPG, WebP, PDF или TXT, до 50 МБ. Если файл не выбран, у нового рецепта не будет кнопки скачивания.</small></label>
+<button id="export" type="submit">Скачать дополнение ZIP</button>
+</form>
+<p id="result" class="status" role="status">После добавления проверь рецепт в локальной копии. Для появления на GitHub Pages обновлённые файлы нужно отдельно загрузить в репозиторий.</p>
+<p><a href="../index.html">Вернуться к книге рецептов</a></p></main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);let catalog=null,pendingAssets=[];
+const lines=id=>$(id).value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+function validateCatalog(data){
+ if(!Array.isArray(data)||data.some(r=>!r||typeof r.id!=='string'||typeof r.title!=='string'||!Array.isArray(r.ingredients)||!Array.isArray(r.steps)))throw Error('Это не файл рецептов данного сайта.');
+ if(new Set(data.map(r=>r.id)).size!==data.length)throw Error('В файле есть повторяющиеся идентификаторы.');
+ return data;
+}
+$('catalog').addEventListener('change',async()=>{
+ catalog=null;pendingAssets=[];$('categories').replaceChildren();
+ try{const f=$('catalog').files[0];if(!f)throw Error('Выбери data/recipes.json.');if(f.size>5*1024*1024)throw Error('Файл данных слишком большой.');catalog=validateCatalog(JSON.parse(await f.text()));
+  $('status').textContent=`Загружено рецептов: ${catalog.length}. Они будут сохранены в дополнении.`;
+  for(const name of new Set(catalog.map(r=>r.category).filter(Boolean))){const o=document.createElement('option');o.value=name;$('categories').append(o)}
+ }catch(e){$('status').textContent=e.message}
+});
+// Standard ZIP, method 0 (stored): no network, libraries or image conversion.
+const encoder=new TextEncoder();
+function crc32(bytes){let c=0xffffffff;for(const b of bytes){c^=b;for(let n=0;n<8;n++)c=(c>>>1)^((c&1)?0xedb88320:0)}return (c^0xffffffff)>>>0}
+function header(size){const b=new Uint8Array(size);return {b,v:new DataView(b.buffer)}}
+function zip(entries){const parts=[],central=[];let offset=0,centralSize=0;
+ for(const [name,data] of entries){const n=encoder.encode(name),crc=crc32(data),h=header(30);h.v.setUint32(0,0x04034b50,true);h.v.setUint16(4,20,true);h.v.setUint16(6,0x800,true);h.v.setUint16(12,33,true);h.v.setUint32(14,crc,true);h.v.setUint32(18,data.length,true);h.v.setUint32(22,data.length,true);h.v.setUint16(26,n.length,true);parts.push(h.b,n,data);
+  const c=header(46);c.v.setUint32(0,0x02014b50,true);c.v.setUint16(4,20,true);c.v.setUint16(6,20,true);c.v.setUint16(8,0x800,true);c.v.setUint16(14,33,true);c.v.setUint32(16,crc,true);c.v.setUint32(20,data.length,true);c.v.setUint32(24,data.length,true);c.v.setUint16(28,n.length,true);c.v.setUint32(42,offset,true);central.push(c.b,n);centralSize+=46+n.length;offset+=30+n.length+data.length;
+ }
+ const e=header(22);e.v.setUint32(0,0x06054b50,true);e.v.setUint16(8,entries.length,true);e.v.setUint16(10,entries.length,true);e.v.setUint32(12,centralSize,true);e.v.setUint32(16,offset,true);return new Blob([...parts,...central,e.b],{type:'application/zip'});
+}
+function extension(file,allowed,max){const ext=file.name.split('.').pop().toLowerCase();if(!allowed.includes(ext))throw Error('Недопустимый тип файла: '+file.name);if(!file.size||file.size>max*1024*1024)throw Error('Проверь размер файла: '+file.name);return ext}
+$('form').addEventListener('submit',async e=>{e.preventDefault();$('export').disabled=true;
+ try{
+  if(!catalog)throw Error('Сначала выбери текущий data/recipes.json.');
+  const ingredients=lines('ingredients'),steps=lines('steps');if(!ingredients.length||!steps.length||!$('title').value.trim()||!$('category').value.trim())throw Error('Заполни название, категорию, ингредиенты и шаги.');
+  const img=$('image').files[0];if(!img)throw Error('Выбери картинку.');
+  const id='recipe-'+Date.now().toString(36)+'-'+crypto.getRandomValues(new Uint32Array(1))[0].toString(36);
+  const imagePath='assets/recipes/'+id+'.'+extension(img,['png','jpg','jpeg','webp'],20);
+  const r={id,title:$('title').value.trim(),category:$('category').value.trim(),time:$('time').value.trim(),image:imagePath,description:$('description').value.trim(),tags:$('tags').value.split(',').map(s=>s.trim()).filter(Boolean),ingredients,steps,tip:$('tip').value.trim()};
+  const entries=[[imagePath,new Uint8Array(await img.arrayBuffer())]];
+  const card=$('download').files[0];if(card){r.download='assets/cards/'+id+'.'+extension(card,['png','jpg','jpeg','webp','pdf','txt'],50);r.downloadName=card.name;entries.push([r.download,new Uint8Array(await card.arrayBuffer())])}
+  const updated=[r,...catalog],allAssets=[...pendingAssets,...entries];
+  const blob=zip([['data/recipes.json',encoder.encode(JSON.stringify(updated,null,2)+'\n')],...allAssets]),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=id+'-update.zip';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
+  catalog=updated;pendingAssets=allAssets;$('status').textContent=`В текущем наборе теперь ${catalog.length} рецептов. Можно добавить следующий: последний ZIP будет включать все рецепты и новые картинки, добавленные за этот сеанс.`;
+  $('result').textContent='Дополнение подготовлено. Распакуй ZIP и перенеси data и assets в копию сайта. Старый data/recipes.json сначала сохрани. Ничего не опубликовано.';
+  $('form').reset();
+ }catch(err){$('result').textContent=err.message}finally{$('export').disabled=false}
+});
+</script></html>
