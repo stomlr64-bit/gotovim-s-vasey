@@ -42,6 +42,8 @@ main{max-width:1180px;margin:0 auto;padding:0 18px 60px}
 .empty{padding:40px;text-align:center;color:var(--muted);grid-column:1/-1}
 @media(max-width:900px){.heroGrid{grid-template-columns:1fr}.heroImg{min-height:0;max-height:520px}.grid{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}}
 @media(max-width:600px){.modalActions{grid-template-columns:1fr}.hero{padding:10px 10px 0}.heroText{padding:24px}.heroText p{font-size:17px}.toolbar,main{padding-left:10px;padding-right:10px}.grid{grid-template-columns:1fr}.card h2{font-size:22px}.modal{padding:8px}.modalBody{padding:18px}}
+
+.languageControl{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}.languageControl select{border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px;color:var(--ink);font:inherit}#translationNotice:empty{display:none}.modalActions{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:600px){.languageControl{width:100%;justify-content:flex-end}input{min-width:0;width:100%}.modalActions{grid-template-columns:1fr}.actions button{min-width:0}.controls{overflow-wrap:anywhere}}
 </style>
 </head>
 <body>
@@ -54,6 +56,7 @@ main{max-width:1180px;margin:0 auto;padding:0 18px 60px}
 </div></div></div></section>
 
 <div class="toolbar"><div class="controls">
+<label class="languageControl"><span id="languageLabel">Язык</span><select id="languageSelect"><option value="ru" lang="ru">Русский</option><option value="en" lang="en">English</option><option value="fr" lang="fr">Français</option></select></label>
 <input id="search" placeholder="Найти: пельмени, фарш, соус, лаваш…">
 <div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
 </div></div>
@@ -63,44 +66,11 @@ main{max-width:1180px;margin:0 auto;padding:0 18px 60px}
 
 <div id="modal" class="modal"><div class="modalBox">
 <img id="mImg" class="modalImg" alt="">
-<div class="modalBody"><button class="close" onclick="closeModal()">Закрыть</button>
+<div class="modalBody"><button class="close" id="closeBtn">Закрыть</button>
 <div class="badge" id="mCat"></div><h2 id="mTitle"></h2><div class="meta" id="mTime"></div><p class="recipeDesc" id="mDesc"></p>
-<div class="cols"><div><h3>Что понадобится</h3><ul id="mIng"></ul></div><div><h3>Как готовить</h3><ol id="mSteps"></ol></div></div>
-<div class="note" id="mTip"></div><div class="modalActions"><button class="copyBig" id="copyBtn">Скопировать рецепт</button><button class="shareBig" id="shareBtn">Поделиться</button><button class="downloadBig" id="downloadBtn" style="display:none">Скачать карточку</button></div>
+<div class="cols"><div><h3 id="ingredientsTitle">Что понадобится</h3><ul id="mIng"></ul></div><div><h3 id="stepsTitle">Как готовить</h3><ol id="mSteps"></ol></div></div>
+<p id="translationNotice" role="status"></p><div class="note" id="mTip"></div><div class="modalActions"><button class="copyBig" id="copyBtn">Скопировать рецепт</button><button class="shareBig" id="shareBtn">Поделиться</button><button class="downloadBig" id="downloadBtn">Скачать рецепт (.txt)</button><button class="downloadBig" id="originalBtn" style="display:none">Карточка на русском</button></div>
 </div></div></div>
 
-<script>
-let RECIPES = [], currentCategory='Все', currentRecipe=null;
-const grid=document.getElementById('grid'), search=document.getElementById('search'), chips=document.getElementById('chips');
-function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function cats(){return ['Все',...new Set(RECIPES.map(r=>r.category).filter(Boolean))]}
-function renderChips(){chips.innerHTML='';cats().forEach(c=>{const b=document.createElement('button');b.className='chip'+(c===currentCategory?' active':'');b.textContent=c;b.onclick=()=>{currentCategory=c;renderChips();render()};chips.appendChild(b)})}
-function render(){const q=search.value.trim().toLowerCase(); const rows=RECIPES.filter(r=>(currentCategory==='Все'||r.category===currentCategory)&&(!q||[r.title,r.category,...(r.tags||[]),...(r.ingredients||[])].join(' ').toLowerCase().includes(q)));
-grid.innerHTML=rows.length?'':'<div class="empty">Ничего не нашлось. Попробуйте другое слово.</div>';
-rows.forEach(r=>{const el=document.createElement('article');el.className='card';el.innerHTML=`<img src="${esc(r.image||'assets/quick-recipes.png')}" alt="${esc(r.title)}"><div class="cardBody"><div class="badge">${esc(r.category||'')}</div><h2>${esc(r.title)}</h2><div class="meta">${esc(r.time||'')}</div><div class="tags">${(r.tags||[]).slice(0,4).map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div><div class="actions"><button class="primary">Открыть рецепт</button><button>Поделиться</button></div></div>`;
-const [open,share]=el.querySelectorAll('button');open.onclick=()=>openModal(r);share.onclick=()=>shareRecipe(r,share);grid.appendChild(el)})}
-function recipeText(r){return `${r.title}\n\nЧто понадобится:\n• ${(r.ingredients||[]).join('\n• ')}\n\nКак готовить:\n${(r.steps||[]).map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\n${r.tip?'Совет: '+r.tip+'\n\n':''}Готовим с Васей по‑быстрому`}
-async function copyRecipe(r,btn){try{await navigator.clipboard.writeText(recipeText(r));const old=btn.textContent;btn.textContent='Скопировано ✓';setTimeout(()=>btn.textContent=old,1600)}catch(e){alert('Не получилось скопировать автоматически. Откройте рецепт и выделите текст вручную.')}}
-async function shareRecipe(r,btn){const text=recipeText(r);if(navigator.share){try{await navigator.share({title:r.title,text});return}catch(e){if(e&&e.name==='AbortError')return}}try{await navigator.clipboard.writeText(text);const old=btn.textContent;btn.textContent='Скопировано ✓';setTimeout(()=>btn.textContent=old,1600);alert('Рецепт скопирован. Можно вставить его в WhatsApp, Telegram или сообщение.')}catch(e){alert('Не получилось открыть меню отправки. Откройте рецепт и скопируйте текст вручную.')}}
-function openModal(r){currentRecipe=r;document.getElementById('mImg').src=r.image||'assets/quick-recipes.png';document.getElementById('mCat').textContent=r.category||'';document.getElementById('mTitle').textContent=r.title||'';document.getElementById('mTime').textContent=r.time||'';document.getElementById('mDesc').textContent=r.description||'';document.getElementById('mIng').innerHTML=(r.ingredients||[]).map(x=>`<li>${esc(x)}</li>`).join('');document.getElementById('mSteps').innerHTML=(r.steps||[]).map(x=>`<li>${esc(x)}</li>`).join('');document.getElementById('mTip').innerHTML=r.tip?'<b>Совет:</b> '+esc(r.tip):'';const d=document.getElementById('downloadBtn');d.style.display=r.download?'block':'none';document.getElementById('modal').classList.add('open')}
-function closeModal(){document.getElementById('modal').classList.remove('open')}
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
-document.getElementById('copyBtn').onclick=()=>currentRecipe&&copyRecipe(currentRecipe,document.getElementById('copyBtn'));
-document.getElementById('shareBtn').onclick=()=>currentRecipe&&shareRecipe(currentRecipe,document.getElementById('shareBtn'));
-document.getElementById('downloadBtn').onclick=()=>{if(!currentRecipe||!currentRecipe.download)return;const a=document.createElement('a');a.href=currentRecipe.download;a.download=currentRecipe.downloadName||'recipe-card.png';document.body.appendChild(a);a.click();a.remove()};
-search.addEventListener('input',render);
-async function loadRecipes(){
-  grid.innerHTML='<div class="empty">Загружаю рецепты…</div>';
-  try{
-    const res=await fetch('./data/recipes.json',{cache:'no-store'});
-    if(!res.ok) throw new Error('recipes');
-    RECIPES=await res.json();
-    if(!Array.isArray(RECIPES)) throw new Error('format');
-    renderChips();render();
-  }catch(e){
-    grid.innerHTML='<div class="empty">Не удалось загрузить рецепты. Обновите страницу. Для просмотра локальной копии откройте сайт через локальный сервер, а не двойным щелчком по index.html.</div>';
-  }
-}
-loadRecipes();
-</script>
+<script src="app.js?v=20261001-1"></script>
 </body></html>
