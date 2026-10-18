@@ -637,7 +637,9 @@
     "Соединить тёплые и свежие овощи перед подачей. По желанию добавить чесночный соус."
   ],
   "tip": "Лепёшка, лаваш, яйцо и сыр нужны только для выбранного способа подачи и не входят в основу на две порции.",
-  "image": "assets/neutral-recipe-cover.svg",
+  "image": "assets/warm-mushroom-salad.png",
+  "download": "assets/warm-mushroom-salad.png",
+  "downloadName": "warm-mushroom-salad.png",
   "servingOptions": [
     {
       "id": "salad",
