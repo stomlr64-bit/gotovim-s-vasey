@@ -44,7 +44,7 @@ main{max-width:1180px;margin:0 auto;padding:0 18px 60px}
 @media(max-width:600px){.modalActions{grid-template-columns:1fr}.hero{padding:10px 10px 0}.heroText{padding:24px}.heroText p{font-size:17px}.toolbar,main{padding-left:10px;padding-right:10px}.grid{grid-template-columns:1fr}.card h2{font-size:22px}.modal{padding:8px}.modalBody{padding:18px}}
 
 .languageControl{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}.languageControl select{border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px;color:var(--ink);font:inherit}#translationNotice:empty{display:none}.modalActions{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:600px){.languageControl{width:100%;justify-content:flex-end}input{min-width:0;width:100%}.modalActions{grid-template-columns:1fr}.actions button{min-width:0}.controls{overflow-wrap:anywhere}}
-</style>
+.servingChoices{display:flex;flex-wrap:wrap;gap:8px}.servingChoices button{min-height:44px;text-align:left;white-space:normal}.servingDescription{line-height:1.55}.servingBlock{margin:18px 0}.servingBlock[hidden]{display:none}</style>
 </head>
 <body>
 <section class="hero"><div class="heroCard"><div class="heroGrid">
@@ -69,8 +69,9 @@ main{max-width:1180px;margin:0 auto;padding:0 18px 60px}
 <div class="modalBody"><button class="close" id="closeBtn">Закрыть</button>
 <div class="badge" id="mCat"></div><h2 id="mTitle"></h2><div class="meta" id="mTime"></div><p class="recipeDesc" id="mDesc"></p>
 <div class="cols"><div><h3 id="ingredientsTitle">Что понадобится</h3><ul id="mIng"></ul></div><div><h3 id="stepsTitle">Как готовить</h3><ol id="mSteps"></ol></div></div>
+<section id="mServing" class="servingBlock" hidden aria-labelledby="servingTitle"><h3 id="servingTitle"></h3><div id="servingChoices" class="servingChoices" role="group" aria-labelledby="servingTitle"></div><p id="servingDescription" class="servingDescription" aria-live="polite"></p></section>
 <p id="translationNotice" role="status"></p><div class="note" id="mTip"></div><div class="modalActions"><button class="copyBig" id="copyBtn">Скопировать рецепт</button><button class="shareBig" id="shareBtn">Поделиться</button><button class="downloadBig" id="downloadBtn">Скачать рецепт (.txt)</button><button class="downloadBig" id="originalBtn" style="display:none">Карточка на русском</button></div>
 </div></div></div>
 
-<script src="app.js?v=20261001-2"></script>
+<script src="app.js?v=20261018-1"></script>
 </body></html>

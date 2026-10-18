@@ -498,6 +498,66 @@
         "Cook over medium heat for 1.5–2 minutes on each side."
       ],
       "tip": "Fold in half with hot chicken mince, cheese or fresh vegetables inside."
+    },
+    "warm-mushroom-vegetable-salad": {
+      "title": "Warm mushroom and vegetable salad",
+      "description": "A base for two servings: golden mushrooms, onion and pepper with fresh cucumber and tomatoes. Choose how to serve it.",
+      "time": "2 servings",
+      "tags": [
+        "mushrooms",
+        "vegetables",
+        "warm salad"
+      ],
+      "ingredients": [
+        "About 300 g button mushrooms",
+        "1 onion",
+        "1 red bell pepper",
+        "1 cucumber",
+        "1–2 tomatoes",
+        "Oil, salt and pepper to taste",
+        "Garlic sauce (optional)"
+      ],
+      "steps": [
+        "Slice the mushrooms, onion and red bell pepper.",
+        "Fry the mushrooms in oil until golden.",
+        "Add the onion and fry with the mushrooms.",
+        "Add the pepper and cook for another 2–3 minutes. Season with salt and pepper.",
+        "Chop the cucumber and tomatoes, keeping them fresh.",
+        "Combine the warm and fresh vegetables just before serving. Add garlic sauce if desired."
+      ],
+      "tip": "Flatbread, lavash, egg and cheese are optional extras for the chosen serving style and are not included in the base for two.",
+      "servingOptions": [
+        {
+          "id": "salad",
+          "label": "Simply a warm salad",
+          "description": "Combine the warm mushrooms, onion and pepper with fresh cucumber and tomatoes just before serving. Add garlic sauce if you like."
+        },
+        {
+          "id": "crispy-flatbread",
+          "label": "In a crispy flatbread",
+          "description": "Toast a flatbread in a dry pan and fill it with the salad just before serving to keep it crisp."
+        },
+        {
+          "id": "flatbread-croutons",
+          "label": "Flatbread instead of croutons",
+          "description": "Toast pieces of flatbread in a dry pan and add them to the salad just before serving instead of croutons."
+        },
+        {
+          "id": "lavash-wrap",
+          "label": "Lavash wrap",
+          "description": "Let the cooked mushrooms and vegetables cool slightly, place the salad on lavash, add garlic sauce if you like and roll up. Serve immediately."
+        },
+        {
+          "id": "fried-egg",
+          "label": "With a fried egg",
+          "description": "Fry an egg and place it on top of the warm salad just before serving."
+        },
+        {
+          "id": "cheese",
+          "label": "With cheese",
+          "description": "Add grated cheese or small pieces of cheese to taste to the warm salad and serve immediately."
+        }
+      ]
     }
   },
   "fr": {
@@ -999,6 +1059,66 @@
         "Cuire à feu moyen 1,5–2 minutes de chaque côté."
       ],
       "tip": "Plier en deux avec du poulet haché chaud, du fromage ou des légumes frais à l’intérieur."
+    },
+    "warm-mushroom-vegetable-salad": {
+      "title": "Salade tiède aux champignons et aux légumes",
+      "description": "Une base pour deux portions : des champignons dorés, de l’oignon et du poivron avec du concombre et des tomates frais. Choisis ta façon de la servir.",
+      "time": "2 portions",
+      "tags": [
+        "champignons",
+        "légumes",
+        "salade tiède"
+      ],
+      "ingredients": [
+        "Environ 300 g de champignons de Paris",
+        "1 oignon",
+        "1 poivron rouge",
+        "1 concombre",
+        "1–2 tomates",
+        "Huile, sel et poivre selon le goût",
+        "Sauce à l’ail (facultatif)"
+      ],
+      "steps": [
+        "Émincer les champignons, l’oignon et le poivron rouge.",
+        "Faire dorer les champignons dans l’huile.",
+        "Ajouter l’oignon et le faire revenir avec les champignons.",
+        "Ajouter le poivron et poursuivre la cuisson pendant 2–3 minutes. Saler et poivrer.",
+        "Couper le concombre et les tomates en les gardant crus.",
+        "Mélanger les légumes chauds et frais juste avant de servir. Ajouter de la sauce à l’ail si souhaité."
+      ],
+      "tip": "La galette, le lavash, l’œuf et le fromage sont des suppléments pour le mode de service choisi et ne font pas partie de la base pour deux portions.",
+      "servingOptions": [
+        {
+          "id": "salad",
+          "label": "Simplement en salade tiède",
+          "description": "Mélange les champignons, l’oignon et le poivron encore chauds avec le concombre et les tomates frais juste avant de servir. Ajoute de la sauce à l’ail si tu le souhaites."
+        },
+        {
+          "id": "crispy-flatbread",
+          "label": "Dans une galette croustillante",
+          "description": "Fais dorer une galette dans une poêle sèche et garnis-la de salade juste avant de servir pour qu’elle reste croustillante."
+        },
+        {
+          "id": "flatbread-croutons",
+          "label": "Galette à la place des croûtons",
+          "description": "Fais dorer des morceaux de galette dans une poêle sèche et ajoute-les à la salade au dernier moment à la place des croûtons."
+        },
+        {
+          "id": "lavash-wrap",
+          "label": "Roulé de lavash",
+          "description": "Laisse tiédir les champignons et les légumes cuits, dépose la salade sur le lavash, ajoute éventuellement de la sauce à l’ail et roule. Sers aussitôt."
+        },
+        {
+          "id": "fried-egg",
+          "label": "Avec un œuf au plat",
+          "description": "Prépare un œuf au plat et dépose-le sur la salade tiède juste avant de servir."
+        },
+        {
+          "id": "cheese",
+          "label": "Avec du fromage",
+          "description": "Ajoute à la salade tiède du fromage râpé ou en petits morceaux selon ton goût et sers aussitôt."
+        }
+      ]
     }
   }
 }
