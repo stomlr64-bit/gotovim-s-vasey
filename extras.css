@@ -1,0 +1,17 @@
+/* Надстройка над базовым сайтом: бегунки, кнопка установки, мягкие тона */
+.kicker,.badge{color:#b0644a}
+.card,.heroCard,.modalBox,.controls{box-shadow:0 8px 24px rgba(120,80,50,.07)}
+.tag,.note{background:#f6e9da}
+
+.sliderBox{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 16px 8px;flex:1 1 100%}
+.sliderBox label{display:flex;justify-content:space-between;gap:12px;font-weight:700;font-size:15px}
+.sliderBox label em{font-style:normal;color:#b0644a;text-align:right}
+.sliderBox input[type=range]{width:100%;min-width:0;padding:0;height:36px;border:0;background:none;accent-color:#c4755a;cursor:pointer}
+.sliderHint{margin:0 0 6px;color:var(--muted);font-size:13px}
+
+.scaleBox{margin:16px 0 8px}
+
+.installBtn{margin-top:14px;align-self:flex-start;background:#c4755a;color:#fff;border:0;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:700;cursor:pointer}
+.installBtn:hover{background:#b0644a}
+.installHelp{margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5;display:none}
+.installHelp.open{display:block}
