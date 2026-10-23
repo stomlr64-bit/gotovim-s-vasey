@@ -1,6 +1,6 @@
 // Простой офлайн-кэш: оболочка приложения и просмотренные картинки.
 // Рецепты и страница берутся из сети первыми, чтобы новые рецепты появлялись сразу.
-const VERSION = 'gotovim-v3';
+const VERSION = 'gotovim-v4';
 const SHELL = ['./', 'index.html', 'app.js', 'extras.js', 'extras.css', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'data/recipes.json', 'data/translations.json'];
 
@@ -29,7 +29,7 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  e.respondWith(fetch(req).then(res => {
+  e.respondWith(fetch(req, { cache: 'no-cache' }).then(res => {
     const copy = res.clone();
     caches.open(VERSION).then(c => c.put(req, copy));
     return res;
