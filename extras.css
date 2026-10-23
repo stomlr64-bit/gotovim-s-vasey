@@ -18,6 +18,32 @@
   .sliderBox{padding:10px 14px 4px}
   .sliderHint{font-size:12px}
   .controls{gap:8px}
+
+  /* компактная шапка: рецепты должны быть видны сразу */
+  .hero{padding:8px 10px 0}
+  .heroImg{max-height:140px!important;min-height:0!important}
+  .heroText{padding:14px 18px 16px}
+  .heroText h1{font-size:28px;margin:4px 0 6px}
+  .heroText p,.heroText .note{display:none}
+  .toolbar{padding-top:8px;padding-bottom:8px}
+  #chips{flex-wrap:nowrap!important;overflow-x:auto;width:100%;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  #chips .chip{flex:none;white-space:nowrap}
+  .languageControl{width:auto;flex:none}
+  .languageControl span{display:none}
+  .controls input{flex:1 1 140px;min-width:0}
+  #ingFilter{display:none}
+  .controls.openFilter #ingFilter{display:block}
+  .installBtn{margin-top:8px;padding:10px 18px;font-size:15px}
+}
+.filterToggle{display:none;width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;text-align:left}
+@media(max-width:600px){.filterToggle{display:block}}
+
+/* когда приложение открыто с иконки: сразу к рецептам, без большой обложки */
+@media (display-mode: standalone){
+  .heroImg,.heroText p,.heroText .note{display:none!important}
+  .heroGrid{grid-template-columns:1fr!important}
+  .heroText{padding:16px 18px}
+  .heroText h1{font-size:28px;margin:4px 0 0}
 }
 
 .installBtn{margin-top:14px;align-self:flex-start;background:#c4755a;color:#fff;border:0;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:700;cursor:pointer}

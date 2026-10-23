@@ -177,7 +177,11 @@ if (typeof document !== 'undefined' && typeof render === 'function') (function (
       box.className = 'sliderBox';
       box.innerHTML = '<label><span id="ingLabel"></span><em id="ingValue"></em></label>' +
         '<input type="range" id="ingRange" aria-labelledby="ingLabel"><p class="sliderHint" id="ingHint"></p>';
-      document.querySelector('.controls').appendChild(box);
+      const controls = document.querySelector('.controls');
+      const toggle = document.createElement('button');
+      toggle.type = 'button'; toggle.id = 'filterToggle'; toggle.className = 'filterToggle';
+      toggle.addEventListener('click', () => { controls.classList.toggle('openFilter'); paintIng(); });
+      controls.append(toggle, box);
       document.getElementById('ingRange').addEventListener('input', e => { ingMax = +e.target.value; paintIng(); render(); });
     }
     const r = document.getElementById('ingRange');
@@ -191,6 +195,10 @@ if (typeof document !== 'undefined' && typeof render === 'function') (function (
     document.getElementById('ingLabel').textContent = T().ingLabel;
     document.getElementById('ingValue').textContent = ingMax >= max ? T().ingAny : ingMax;
     document.getElementById('ingHint').textContent = T().ingHint;
+    const open = document.querySelector('.controls').classList.contains('openFilter');
+    const name = { ru: 'Фильтр по числу продуктов', en: 'Filter by number of ingredients', fr: "Filtre par nombre d'ingrédients" }[lang] || 'Фильтр';
+    const t = document.getElementById('filterToggle');
+    if (t) t.textContent = (open ? '▴ ' : '▾ ') + name + (ingMax < max ? ': ' + ingMax : '');
   }
   function applyIngFilter() {
     if (ingMax === null) return;
