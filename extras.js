@@ -190,20 +190,53 @@ if (typeof document !== 'undefined' && typeof render === 'function') (function (
     document.getElementById('mIng').innerHTML = translated(currentRecipe).ingredients.map(s => `<li>${esc(s)}</li>`).join('');
   }
 
+  /* --- кнопка "К рецептам" сверху (всегда на виду) и снизу, плюс кнопка "Назад" телефона --- */
+  const BACK = { ru: 'К рецептам', en: 'Back to recipes', fr: 'Retour aux recettes' };
+  function ensureBackButtons() {
+    const box = document.querySelector('#modal .modalBox');
+    if (document.getElementById('backTop')) return;
+    const top = document.createElement('div');
+    top.id = 'backTop'; top.className = 'backBar';
+    top.innerHTML = '<button type="button" class="backBtn" id="backTopBtn"></button>';
+    box.prepend(top);
+    const bottom = document.createElement('button');
+    bottom.type = 'button'; bottom.id = 'backBottomBtn'; bottom.className = 'backBtn backBottom';
+    document.querySelector('#modal .modalActions').after(bottom);
+    document.getElementById('backTopBtn').addEventListener('click', closeModal);
+    bottom.addEventListener('click', closeModal);
+  }
+  function paintBack() {
+    const t = '← ' + (BACK[lang] || BACK.ru);
+    const a = document.getElementById('backTopBtn'), b = document.getElementById('backBottomBtn');
+    if (a) a.textContent = t;
+    if (b) b.textContent = t;
+  }
+  const modalOpen = () => document.getElementById('modal').classList.contains('open');
+
   const baseOpenModal = openModal;
   openModal = function (raw) {
     mult = 1;
     baseOpenModal(raw);
     ensureScaleBox();
     paintScale();
+    ensureBackButtons();
+    paintBack();
+    document.querySelector('#modal .modalBox').scrollTop = 0;
+    try { history.pushState({ gvModal: true }, ''); } catch {}
   };
   const baseCloseModal = closeModal;
-  closeModal = function () { mult = 1; baseCloseModal(); };
+  closeModal = function () {
+    if (history.state && history.state.gvModal) { history.back(); return; } // закроет popstate ниже
+    mult = 1; baseCloseModal();
+  };
+  window.addEventListener('popstate', () => { if (modalOpen()) { mult = 1; baseCloseModal(); } });
+  document.getElementById('closeBtn').onclick = closeModal;
 
   const baseSetLanguage = setLanguage;
   setLanguage = function (next) {
     baseSetLanguage(next);
     if (document.getElementById('scaleLabel')) { paintScale(); repaintIngredients(); }
+    paintBack();
     paintInstall();
   };
 

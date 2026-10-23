@@ -49,3 +49,11 @@
 .installBtn:hover{background:#b0644a}
 .installHelp{margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5;display:none}
 .installHelp.open{display:block}
+
+/* кнопка "К рецептам": сверху полосой, которая не уезжает при прокрутке, и ещё раз внизу */
+.modalBox{position:relative}
+.backBar{position:sticky;top:0;z-index:5;background:var(--card);padding:10px 14px;border-bottom:1px solid var(--line)}
+.backBtn{display:block;width:100%;border:0;border-radius:999px;background:#c4755a;color:#fff;font-size:18px;font-weight:700;padding:13px 18px;cursor:pointer}
+.backBtn:hover{background:#b0644a}
+.backBottom{margin-top:16px}
+.modalBody .close{display:none}
