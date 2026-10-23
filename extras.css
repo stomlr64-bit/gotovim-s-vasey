@@ -11,6 +11,15 @@
 
 .scaleBox{margin:16px 0 8px}
 
+/* Панель поиска не должна занимать экран: прилипает только на высоких широких экранах */
+.toolbar{position:static!important}
+@media(min-width:901px) and (min-height:760px){.toolbar{position:sticky!important}}
+@media(max-width:600px){
+  .sliderBox{padding:10px 14px 4px}
+  .sliderHint{font-size:12px}
+  .controls{gap:8px}
+}
+
 .installBtn{margin-top:14px;align-self:flex-start;background:#c4755a;color:#fff;border:0;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:700;cursor:pointer}
 .installBtn:hover{background:#b0644a}
 .installHelp{margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.5;display:none}
