@@ -21,7 +21,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
 
   const TX = {
     ru: {
-      title: 'Рецепты от них',
+      title: 'Наша семья готовит',
       intro: 'Здесь свои рецепты добавляют Ян, Мами, Сергей и Эмиль. Открой рубрику и посмотри.',
       empty: 'Пока здесь нет рецептов. Скоро появятся.',
       soon: 'Рубрика скоро откроется.',
@@ -77,7 +77,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       ingPh: 'Орео - 16 шт.\nМолоко - 30 мл'
     },
     en: {
-      title: 'Recipes from them',
+      title: 'Our family cooks',
       intro: 'Yan, Mami, Sergey and Emil add their own recipes here. Open a section and take a look.',
       empty: 'No recipes here yet. They will appear soon.',
       soon: 'This section opens soon.',
@@ -133,7 +133,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       ingPh: 'Oreo - 16\nMilk - 30 ml'
     },
     fr: {
-      title: 'Recettes de la famille',
+      title: 'Notre famille cuisine',
       intro: 'Yan, Mami, Sergueï et Émile ajoutent ici leurs propres recettes. Ouvre une rubrique et regarde.',
       empty: 'Pas encore de recettes ici. Elles arrivent bientôt.',
       soon: 'Cette rubrique ouvre bientôt.',
