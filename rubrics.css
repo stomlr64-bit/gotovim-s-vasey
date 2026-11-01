@@ -27,3 +27,13 @@
 .fButtons{display:grid;grid-template-columns:2fr 1fr;gap:10px}
 .fButtons button{min-height:48px;border-radius:14px}
 @media(max-width:600px){.rubrics{padding:4px 10px 18px}.rubTiles{grid-template-columns:1fr}.fButtons{grid-template-columns:1fr}}
+.rubDrawing{font-size:13px;color:#8a5a48;background:#f8e3d5;border-radius:999px;padding:5px 10px;align-self:flex-start}
+.fCheck{display:flex;align-items:center;gap:10px;margin:18px 0 4px;font-weight:700;cursor:pointer}
+#addModal .fCheck input{display:inline-block;width:24px;height:24px;flex:none;padding:0}
+.fPhotoBox{margin:6px 0 4px 34px}
+.fPhotoPrev{display:block;max-width:220px;max-height:160px;border-radius:12px;margin-top:8px;object-fit:cover}
+.fPhotoBox[hidden],.fPhotoPrev[hidden]{display:none}
+.rubImgRow{margin-top:14px;border-top:1px solid var(--line);padding-top:6px}
+.rubImgRow[hidden]{display:none}
+.rubImgRow .row{display:flex;gap:10px;flex-wrap:wrap}
+.rubImgRow button{border-radius:14px;min-height:46px;background:#fff7e8;border-color:var(--gold)}

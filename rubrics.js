@@ -56,7 +56,22 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       errNet: 'Не получилось отправить. Проверь интернет и нажми ещё раз.',
       del: 'Убрать мой рецепт',
       delAsk: 'Убрать этот рецепт из рубрики?',
-      deleted: 'Рецепт убран.'
+      deleted: 'Рецепт убран.',
+      imgLabel: 'Картинка к рецепту',
+      imgAi: 'Нарисовать нейросетью',
+      imgPhoto: 'Своё фото',
+      imgNone: 'Без картинки (будет общая)',
+      imgHint: 'Нейросеть рисует картинку за минуту, в день можно две.',
+      photoPick: 'Выбрать фото',
+      photoChosen: 'Фото выбрано',
+      errPhoto: 'Выбери фото или другой вариант картинки.',
+      okPhoto: 'Готово! Рецепт добавлен с твоим фото.',
+      okImg: 'Готово! Рецепт добавлен. Картинка рисуется, появится через минуту.',
+      okNoImg: 'Рецепт добавлен. Картинку сегодня рисовать не получится, стоит общая.',
+      drawing: 'Картинка рисуется…',
+      imgLimit: 'Сегодня картинку рисовать уже не получится, лимит. Можно загрузить своё фото.',
+      imgFail: 'Не получилось нарисовать. Попробуй позже или загрузи своё фото.',
+      ingPh: 'Орео - 16 шт.\nМолоко - 30 мл'
     },
     en: {
       title: 'Recipes from them',
@@ -94,7 +109,22 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       errNet: 'Could not send. Check the internet and tap again.',
       del: 'Remove my recipe',
       delAsk: 'Remove this recipe from the section?',
-      deleted: 'Recipe removed.'
+      deleted: 'Recipe removed.',
+      imgLabel: 'Picture for the recipe',
+      imgAi: 'Draw with AI',
+      imgPhoto: 'My own photo',
+      imgNone: 'No picture (the common one)',
+      imgHint: 'An AI draws the picture in about a minute, two per day.',
+      photoPick: 'Choose a photo',
+      photoChosen: 'Photo chosen',
+      errPhoto: 'Choose a photo or another picture option.',
+      okPhoto: 'Done! The recipe is added with your photo.',
+      okImg: 'Done! The recipe is added. The picture is being drawn and will appear in a minute.',
+      okNoImg: 'The recipe is added. No picture can be drawn today, the common one is used.',
+      drawing: 'Drawing the picture…',
+      imgLimit: 'No more pictures can be drawn today. You can upload your own photo.',
+      imgFail: 'Could not draw it. Try later or upload your own photo.',
+      ingPh: 'Oreo - 16\nMilk - 30 ml'
     },
     fr: {
       title: 'Recettes de la famille',
@@ -132,7 +162,22 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       errNet: "Envoi impossible. Vérifie internet et appuie encore.",
       del: 'Retirer ma recette',
       delAsk: 'Retirer cette recette de la rubrique ?',
-      deleted: 'Recette retirée.'
+      deleted: 'Recette retirée.',
+      imgLabel: 'Image de la recette',
+      imgAi: 'Dessiner avec une IA',
+      imgPhoto: 'Ma propre photo',
+      imgNone: 'Sans image (l’image commune)',
+      imgHint: 'Une IA dessine l’image en environ une minute, deux par jour.',
+      photoPick: 'Choisir une photo',
+      photoChosen: 'Photo choisie',
+      errPhoto: 'Choisis une photo ou une autre option.',
+      okPhoto: 'C’est fait ! La recette est ajoutée avec ta photo.',
+      okImg: 'C’est fait ! La recette est ajoutée. L’image est en cours de dessin, elle apparaîtra dans une minute.',
+      okNoImg: 'La recette est ajoutée. Pas d’image aujourd’hui, l’image commune est utilisée.',
+      drawing: 'L’image est en cours de dessin…',
+      imgLimit: 'Plus d’image à dessiner aujourd’hui. Tu peux ajouter ta propre photo.',
+      imgFail: 'Impossible de dessiner. Réessaie plus tard ou ajoute ta photo.',
+      ingPh: 'Oreo - 16\nLait - 30 ml'
     }
   };
   const X = () => TX[lang] || TX.ru;
@@ -199,9 +244,10 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     if (openId) load(openId);
   }
 
-  async function load(id) {
+  let pollTimer = null, pollCount = 0;
+  async function load(id, quiet) {
     if (!GV_RUBRICS_URL && !DEMO) { loadState[id] = 'off'; paintBody(); return; }
-    loadState[id] = 'loading'; paintBody();
+    if (!quiet) { loadState[id] = 'loading'; paintBody(); }
     try {
       const r = await api({ action: 'list', author: id });
       if (!r.ok) throw Error('x');
@@ -213,6 +259,10 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       loadState[id] = lists[id] ? 'ok' : 'error';
     }
     if (openId === id) paintBody();
+    // пока картинка рисуется, тихо обновляем список раз в 15 секунд (не дольше 5 минут)
+    clearTimeout(pollTimer);
+    if (!quiet) pollCount = 0;
+    if (openId === id && (lists[id] || []).some(r => r.pending) && pollCount++ < 20) pollTimer = setTimeout(() => load(id, true), 15000);
   }
 
   function paintBody() {
@@ -225,7 +275,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     else if (st === 'loading' || !st) inner = `<div class="rubNote">${esc(x.loading)}</div>`;
     else if (st === 'error') inner = `<div class="rubNote">${esc(x.loadError)}</div>`;
     else if (!list.length) inner = `<div class="rubNote">${esc(x.empty)}</div>`;
-    else inner = `<div class="grid">${list.map(r => `<article class="card"><img src="${esc(r.image || 'assets/quick-recipes.png')}" alt="${esc(r.title)}"><div class="cardBody"><div class="badge">${esc(aName(r.author))}</div><h2>${esc(r.title)}</h2><div class="meta">${esc(r.time || '')}</div><div class="actions"><button class="primary" data-r="${esc(r.id)}">${esc(x.open)}</button></div></div></article>`).join('')}</div>`;
+    else inner = `<div class="grid">${list.map(r => `<article class="card"><img src="${esc(pic(r.image, 700) || 'assets/quick-recipes.png')}" alt="${esc(r.title)}" onerror="this.onerror=null;this.src='assets/quick-recipes.png'"><div class="cardBody"><div class="badge">${esc(aName(r.author))}</div>${r.pending ? `<div class="rubDrawing">${esc(x.drawing)}</div>` : ''}<h2>${esc(r.title)}</h2><div class="meta">${esc(r.time || '')}</div><div class="actions"><button class="primary" data-r="${esc(r.id)}">${esc(x.open)}</button></div></div></article>`).join('')}</div>`;
     box.innerHTML = `<div class="rubHead"><h3>${esc(aName(openId))}</h3><button type="button" class="primary rubAdd" id="rubAddBtn">${esc(x.add)}</button></div>${inner}`;
     document.getElementById('rubAddBtn').onclick = () => openForm(openId);
     box.querySelectorAll('button[data-r]').forEach(b => b.onclick = () => {
@@ -233,10 +283,13 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     });
   }
 
+  // картинки с Диска просим уменьшенными: так быстрее и Google не ограничивает открытие
+  const pic = (u, w) => (u && u.indexOf('lh3.googleusercontent.com/d/') > -1 && u.indexOf('=') < 0) ? u + '=w' + w + '-rj' : u;
+
   function asRecipe(r) {
     return { id: r.id, user: true, author: r.author, category: aName(r.author), title: r.title, time: r.time || '',
       description: r.description || '', ingredients: r.ingredients || [], steps: r.steps || [], tip: r.tip || '',
-      image: r.image || 'assets/quick-recipes.png' };
+      image: pic(r.image, 1100) || 'assets/quick-recipes.png' };
   }
 
   /* ---------- открытие рецепта автора в обычном окне ---------- */
@@ -253,6 +306,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
   function paintDel() {
     let b = document.getElementById('rubDelBtn');
     const show = viewing && store.get('gv-code-' + viewing.author);
+    paintImgRow(!!show);
     if (!show) { if (b) b.hidden = true; return; }
     if (!b) {
       b = document.createElement('button');
@@ -262,6 +316,38 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     }
     b.hidden = false; b.textContent = X().del;
   }
+  function paintImgRow(show) {
+    let row = document.getElementById('rubImgRow');
+    if (!row) {
+      row = document.createElement('div');
+      row.id = 'rubImgRow'; row.className = 'rubImgRow';
+      row.innerHTML = '<div class="fLabel" id="rubImgTitle"></div><div class="row"><button type="button" id="rubImgAi"></button><button type="button" id="rubImgPhoto"></button></div><input type="file" id="rubImgFile" accept="image/*" hidden>';
+      document.querySelector('#modal .modalBody').append(row);
+      document.getElementById('rubImgAi').onclick = () => changeImage('ai');
+      document.getElementById('rubImgPhoto').onclick = () => document.getElementById('rubImgFile').click();
+      document.getElementById('rubImgFile').onchange = async e => {
+        const f = e.target.files && e.target.files[0]; e.target.value = '';
+        if (!f) return;
+        try { changeImage('photo', await shrink(f)); } catch { alert(X().errNet); }
+      };
+    }
+    row.hidden = !show;
+    document.getElementById('rubImgTitle').textContent = X().imgLabel;
+    document.getElementById('rubImgAi').textContent = X().imgAi;
+    document.getElementById('rubImgPhoto').textContent = X().imgPhoto;
+  }
+  async function changeImage(mode, photo) {
+    if (!viewing) return;
+    const v = viewing, x = X();
+    try {
+      const r = await api({ action: 'image', author: v.author, code: store.get('gv-code-' + v.author), id: v.id, photo: photo || '' });
+      if (!r.ok) { alert(r.error === 'code' ? x.errCode : x.errNet); return; }
+      closeModal();
+      alert(r.image === 'pending' ? x.okImg : r.image === 'photo' ? x.okPhoto : r.image === 'limit' ? x.imgLimit : x.imgFail);
+    } catch { alert(x.errNet); return; }
+    await load(v.author);
+  }
+
   async function removeViewing() {
     if (!viewing || !confirm(X().delAsk)) return;
     const v = viewing;
@@ -306,11 +392,28 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       ${field('fIng', x.ing, x.ingHint, 'textarea', 5)}
       ${field('fSteps', x.steps, x.stepsHint, 'textarea', 6)}
       ${field('fTip', x.tip, '', 'textarea', 2)}
+      <div class="fLabel">${esc(x.imgLabel)}</div>
+      <label class="fCheck"><input type="radio" name="fImgMode" value="ai" checked> <span>${esc(x.imgAi)}</span></label>
+      <div class="fHint">${esc(x.imgHint)}</div>
+      <label class="fCheck"><input type="radio" name="fImgMode" value="photo"> <span>${esc(x.imgPhoto)}</span></label>
+      <div id="fPhotoBox" class="fPhotoBox" hidden><button type="button" id="fPhotoBtn">${esc(x.photoPick)}</button> <span id="fPhotoName" class="fHint"></span><input type="file" id="fPhoto" accept="image/*" hidden><img id="fPhotoPrev" class="fPhotoPrev" alt="" hidden></div>
+      <label class="fCheck"><input type="radio" name="fImgMode" value="none"> <span>${esc(x.imgNone)}</span></label>
       <p class="fHint">${esc(x.micTip)}</p>
       <div id="fMsg" class="fMsg" role="status"></div>
       <div class="fButtons"><button type="button" class="primary" id="fSend">${esc(x.send)}</button><button type="button" id="fClose">${esc(x.cancel)}</button></div>`;
     const code = store.get('gv-code-' + authorId);
     document.getElementById('fCode').value = code;
+    document.getElementById('fIng').placeholder = x.ingPh;
+    const modeOf = () => (m.querySelector('input[name="fImgMode"]:checked') || {}).value;
+    m.querySelectorAll('input[name="fImgMode"]').forEach(r => r.onchange = () => { document.getElementById('fPhotoBox').hidden = modeOf() !== 'photo'; });
+    document.getElementById('fPhotoBtn').onclick = () => document.getElementById('fPhoto').click();
+    photoData = '';
+    document.getElementById('fPhoto').onchange = async e => {
+      const f = e.target.files && e.target.files[0];
+      photoData = ''; const prev = document.getElementById('fPhotoPrev'); prev.hidden = true;
+      if (!f) { document.getElementById('fPhotoName').textContent = ''; return; }
+      try { photoData = await shrink(f); prev.src = photoData; prev.hidden = false; document.getElementById('fPhotoName').textContent = X().photoChosen; } catch { document.getElementById('fPhotoName').textContent = X().errNet; }
+    };
     document.getElementById('fWho').onchange = e => { document.getElementById('fCode').value = store.get('gv-code-' + e.target.value); };
     m.querySelectorAll('.micRow').forEach(row => attachMic(row, document.getElementById(row.dataset.for)));
     document.getElementById('fClose').onclick = closeForm;
@@ -320,6 +423,22 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
   }
   function closeForm() { stopMic(); const m = document.getElementById('addModal'); if (m) m.classList.remove('open'); }
 
+  let photoData = '';
+  // уменьшаем фото до 1000 px по длинной стороне, чтобы быстро отправлялось с телефона
+  function shrink(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file), img = new Image();
+      img.onload = () => {
+        const k = Math.min(1, 1000 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url); resolve(c.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('img')); };
+      img.src = url;
+    });
+  }
+
   const lines = id => document.getElementById(id).value.split('\n').map(s => s.trim()).filter(Boolean);
 
   async function send() {
@@ -327,17 +446,22 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     const author = document.getElementById('fWho').value, code = document.getElementById('fCode').value.trim();
     const recipe = {
       title: document.getElementById('fTitle').value.trim(), time: document.getElementById('fTime').value.trim(),
-      ingredients: lines('fIng'), steps: lines('fSteps'), tip: document.getElementById('fTip').value.trim()
+      ingredients: lines('fIng'), steps: lines('fSteps'), tip: document.getElementById('fTip').value.trim(),
+      makeImage: false
     };
+    const mode = (document.querySelector('#addModal input[name="fImgMode"]:checked') || {}).value;
+    if (mode === 'ai') recipe.makeImage = true;
+    if (mode === 'photo') recipe.photo = photoData;
     msg.className = 'fMsg';
     if (!code) { msg.textContent = x.errCode; msg.classList.add('bad'); return; }
     if (!recipe.title || !recipe.ingredients.length || !recipe.steps.length) { msg.textContent = x.errInvalid; msg.classList.add('bad'); return; }
+    if (mode === 'photo' && !photoData) { msg.textContent = x.errPhoto; msg.classList.add('bad'); return; }
     btn.disabled = true; btn.textContent = x.sending;
     try {
       const r = await api({ action: 'add', author, code, recipe });
       if (r.ok) {
         store.set('gv-code-' + author, code);
-        msg.textContent = x.okMsg; msg.classList.add('good');
+        msg.textContent = r.image === 'pending' ? x.okImg : (r.image === 'limit' ? x.okNoImg : (r.image === 'photo' ? x.okPhoto : x.okMsg)); msg.classList.add('good');
         openId = author; paint(); await load(author);
         setTimeout(closeForm, 1400);
       } else {
