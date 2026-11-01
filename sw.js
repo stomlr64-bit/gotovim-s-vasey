@@ -1,6 +1,6 @@
 // Простой офлайн-кэш: оболочка приложения и просмотренные картинки.
 // Рецепты и страница берутся из сети первыми, чтобы новые рецепты появлялись сразу.
-const VERSION = 'gotovim-v9';
+const VERSION = 'gotovim-v10';
 const SHELL = ['./', 'index.html', 'app.js', 'extras.js', 'extras.css', 'rubrics.js', 'rubrics.css', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'data/recipes.json', 'data/translations.json'];
 

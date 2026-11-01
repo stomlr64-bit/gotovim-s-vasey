@@ -69,6 +69,9 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       okImg: 'Готово! Рецепт добавлен. Картинка рисуется, появится через минуту.',
       okNoImg: 'Рецепт добавлен. Картинку сегодня рисовать не получится, стоит общая.',
       drawing: 'Картинка рисуется…',
+      lookLabel: 'Как выглядит готовое блюдо (необязательно)',
+      lookHint: 'Цвет и форма в двух словах. Так нейросеть нарисует картинку похожей.',
+      lookPh: 'Например: тёмный шоколадный рулет, нарезан кружочками',
       imgLimit: 'Сегодня картинку рисовать уже не получится, лимит. Можно загрузить своё фото.',
       imgFail: 'Не получилось нарисовать. Попробуй позже или загрузи своё фото.',
       ingPh: 'Орео - 16 шт.\nМолоко - 30 мл'
@@ -122,6 +125,9 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       okImg: 'Done! The recipe is added. The picture is being drawn and will appear in a minute.',
       okNoImg: 'The recipe is added. No picture can be drawn today, the common one is used.',
       drawing: 'Drawing the picture…',
+      lookLabel: 'How the finished dish looks (optional)',
+      lookHint: 'Colour and shape in a few words, so the AI draws it right.',
+      lookPh: 'For example: dark chocolate roll cut in slices',
       imgLimit: 'No more pictures can be drawn today. You can upload your own photo.',
       imgFail: 'Could not draw it. Try later or upload your own photo.',
       ingPh: 'Oreo - 16\nMilk - 30 ml'
@@ -175,6 +181,9 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       okImg: 'C’est fait ! La recette est ajoutée. L’image est en cours de dessin, elle apparaîtra dans une minute.',
       okNoImg: 'La recette est ajoutée. Pas d’image aujourd’hui, l’image commune est utilisée.',
       drawing: 'L’image est en cours de dessin…',
+      lookLabel: 'À quoi ressemble le plat fini (facultatif)',
+      lookHint: 'Couleur et forme en quelques mots, pour que l’IA dessine juste.',
+      lookPh: 'Par exemple : rouleau au chocolat noir coupé en rondelles',
       imgLimit: 'Plus d’image à dessiner aujourd’hui. Tu peux ajouter ta propre photo.',
       imgFail: 'Impossible de dessiner. Réessaie plus tard ou ajoute ta photo.',
       ingPh: 'Oreo - 16\nLait - 30 ml'
@@ -389,6 +398,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
       ${field('fCode', x.code, x.codeHint, 'input', 'inputmode="numeric" autocomplete="off"')}
       ${field('fTitle', x.name, '', 'input', 'maxlength="120"')}
       ${field('fTime', x.time, '', 'input', `maxlength="60" placeholder="${esc(x.timePh)}"`)}
+      ${field('fLook', x.lookLabel, x.lookHint, 'textarea', 2)}
       ${field('fIng', x.ing, x.ingHint, 'textarea', 5)}
       ${field('fSteps', x.steps, x.stepsHint, 'textarea', 6)}
       ${field('fTip', x.tip, '', 'textarea', 2)}
@@ -404,6 +414,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     const code = store.get('gv-code-' + authorId);
     document.getElementById('fCode').value = code;
     document.getElementById('fIng').placeholder = x.ingPh;
+    document.getElementById('fLook').placeholder = x.lookPh;
     const modeOf = () => (m.querySelector('input[name="fImgMode"]:checked') || {}).value;
     m.querySelectorAll('input[name="fImgMode"]').forEach(r => r.onchange = () => { document.getElementById('fPhotoBox').hidden = modeOf() !== 'photo'; });
     document.getElementById('fPhotoBtn').onclick = () => document.getElementById('fPhoto').click();
@@ -446,6 +457,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     const author = document.getElementById('fWho').value, code = document.getElementById('fCode').value.trim();
     const recipe = {
       title: document.getElementById('fTitle').value.trim(), time: document.getElementById('fTime').value.trim(),
+      description: document.getElementById('fLook').value.trim(),
       ingredients: lines('fIng'), steps: lines('fSteps'), tip: document.getElementById('fTip').value.trim(),
       makeImage: false
     };
