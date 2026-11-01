@@ -14,14 +14,15 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
   const AUTHORS = [
     { id: 'yan', ru: 'От Яна', en: 'From Yan', fr: 'De Yan', letter: 'Я' },
     { id: 'mami', ru: 'От Мами', en: 'From Mami', fr: 'De Mami', letter: 'М' },
-    { id: 'sergey', ru: 'От Сергея', en: 'From Sergey', fr: 'De Sergueï', letter: 'С' }
+    { id: 'sergey', ru: 'От Сергея', en: 'From Sergey', fr: 'De Sergueï', letter: 'С' },
+    { id: 'emil', ru: 'От Эмиля', en: 'From Emil', fr: 'D’Émile', letter: 'Э' }
   ];
   const SR_LANG = { ru: 'ru-RU', en: 'en-US', fr: 'fr-FR' };
 
   const TX = {
     ru: {
       title: 'Рецепты от них',
-      intro: 'Здесь свои рецепты добавляют Ян, Мами и Сергей. Открой рубрику и посмотри.',
+      intro: 'Здесь свои рецепты добавляют Ян, Мами, Сергей и Эмиль. Открой рубрику и посмотри.',
       empty: 'Пока здесь нет рецептов. Скоро появятся.',
       soon: 'Рубрика скоро откроется.',
       loading: 'Загружаю…',
@@ -59,7 +60,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     },
     en: {
       title: 'Recipes from them',
-      intro: 'Yan, Mami and Sergey add their own recipes here. Open a section and take a look.',
+      intro: 'Yan, Mami, Sergey and Emil add their own recipes here. Open a section and take a look.',
       empty: 'No recipes here yet. They will appear soon.',
       soon: 'This section opens soon.',
       loading: 'Loading…',
@@ -97,7 +98,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     },
     fr: {
       title: 'Recettes de la famille',
-      intro: 'Yan, Mami et Sergueï ajoutent ici leurs propres recettes. Ouvre une rubrique et regarde.',
+      intro: 'Yan, Mami, Sergueï et Émile ajoutent ici leurs propres recettes. Ouvre une rubrique et regarde.',
       empty: 'Pas encore de recettes ici. Elles arrivent bientôt.',
       soon: 'Cette rubrique ouvre bientôt.',
       loading: 'Chargement…',
