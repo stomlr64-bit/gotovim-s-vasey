@@ -1,0 +1,29 @@
+/* Рубрики "Рецепты от них": мягкие тона, без резких контрастов */
+.rubrics{max-width:1180px;margin:0 auto;padding:6px 18px 22px}
+.rubTitle{font-size:clamp(24px,3.4vw,32px);margin:8px 0 6px}
+.rubIntro{color:var(--muted);margin:0 0 14px;line-height:1.5}
+.rubTiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rubTile{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 16px;font-size:18px;text-align:left;box-shadow:0 6px 18px rgba(70,50,30,.05);min-height:64px}
+.rubTile.active{background:#f8e3d5;border-color:var(--green)}
+.rubLetter{flex:none;width:40px;height:40px;border-radius:50%;background:#f3c9b0;color:#7a4a38;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px}
+.rubBody{margin-top:16px}
+.rubHead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.rubHead h3{margin:0;font-size:22px}
+.rubAdd{border-radius:14px;min-height:46px}
+.rubNote{background:#f1eadc;border-radius:16px;padding:16px;color:var(--muted)}
+.rubDel{display:block;width:100%;margin-top:12px;border-radius:14px;background:#fff;color:#8a5a48;border-color:var(--line)}
+.rubDel[hidden]{display:none}
+#addModal .modalBox{max-width:620px}
+#addModal h2{margin:0 0 6px}
+#addModal input,#addModal textarea,#addModal select{display:block;width:100%;min-width:0;flex:none;font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+#addModal textarea{resize:vertical;line-height:1.45}
+.fLabel{display:block;font-weight:700;margin:16px 0 4px}
+.fHint{color:var(--muted);font-size:14px;line-height:1.45;margin:0 0 6px}
+.micRow{margin-top:6px}
+.micBtn{border-radius:12px;min-height:44px;background:#fff7e8;border-color:var(--gold)}
+.fMsg{min-height:24px;margin:14px 0 4px;font-weight:700}
+.fMsg.good{color:#6b7a4a}
+.fMsg.bad{color:#a2503a}
+.fButtons{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.fButtons button{min-height:48px;border-radius:14px}
+@media(max-width:600px){.rubrics{padding:4px 10px 18px}.rubTiles{grid-template-columns:1fr}.fButtons{grid-template-columns:1fr}}
