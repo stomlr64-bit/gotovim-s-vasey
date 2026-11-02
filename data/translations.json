@@ -558,6 +558,108 @@
           "description": "Add grated cheese or small pieces of cheese to taste to the warm salad and serve immediately."
         }
       ]
+    },
+    "mustard-pork-dinner": {
+      "title": "Mustard pork cutlets and a quick dinner",
+      "description": "I made this dinner on 10 October 2026 for myself and my son: golden mustard pork cutlets, buttered pasta, tomatoes with a garlic dressing and rye toasts with avocado. It was delicious! Serves two; some of the cutlets can be saved for sandwiches.",
+      "time": "about 30 minutes",
+      "tags": [
+        "pork",
+        "mustard",
+        "cutlets",
+        "quick",
+        "pasta",
+        "avocado"
+      ],
+      "ingredients": [
+        "For the cutlets: pork tenderloin, 400–500 g",
+        "2 eggs",
+        "3–4 tbsp flour",
+        "1/2 tsp hot mustard",
+        "1 tsp paprika",
+        "Salt and black pepper",
+        "Vegetable oil for frying",
+        "For the side: pasta for 2 servings",
+        "Butter",
+        "Cheese (optional)",
+        "For the tomatoes: 3 small plum tomatoes",
+        "Garlic",
+        "Vegetable oil",
+        "Salt and a little paprika",
+        "For the toasts: Borodinsky (dark rye) bread",
+        "1 ripe avocado",
+        "Salt and black pepper",
+        "A little olive oil",
+        "Lemon juice (optional)"
+      ],
+      "steps": [
+        "Cut the pork across the grain into small pieces about 1.5 cm thick. Pound them lightly.",
+        "Mix the eggs, mustard, paprika, salt, pepper and 1 tablespoon of flour.",
+        "Coat the pieces of meat in the rest of the flour, then dip them in the egg batter.",
+        "Fry over medium heat for about 3–4 minutes on each side, depending on the thickness, until the pork is cooked through.",
+        "Boil the pasta. Add butter and, if you like, cheese.",
+        "Cut the tomatoes into quarters and mix with garlic, oil, salt and paprika. Let them stand for a little while.",
+        "Toast the rye bread in a dry frying pan until lightly crisp.",
+        "Mash the avocado with a fork, add salt, pepper, a little olive oil and, if you like, lemon juice. Spread it on the warm bread.",
+        "Serve the hot cutlets with the pasta, tomatoes and avocado toasts."
+      ],
+      "tip": "The secret is a little hot mustard in the batter. It adds flavour, and the paprika helps give a lovely crust. The cutlets are good hot or cold, so leftovers are great for sandwiches. They go especially well with rye bread toasted in a dry pan and avocado spread."
+    },
+    "u-mvxy1b9gzc": {
+      "title": "Oreo rolls",
+      "time": "1 hour",
+      "description": "",
+      "ingredients": [
+        "Oreo - 16 or more",
+        "Milk - 30 ml or more"
+      ],
+      "steps": [
+        "Separate the cream from the cookies.",
+        "Put the cookies into a plastic bag.",
+        "Crush the cookies into crumbs.",
+        "Put the cookies on a plate.",
+        "Mix the cookies with milk (25 ml+).",
+        "Take the dough (cookies + milk = dough).",
+        "Roll out the dough.",
+        "Take the cream.",
+        "Put it on a plate.",
+        "Mix it with milk (5-10 ml+).",
+        "Take this mixture.",
+        "Roll it out onto the dough.",
+        "Put this combination back.",
+        "And also wrap it in cling film.",
+        "Put it in the freezer for one hour.",
+        "Take it out of the freezer.",
+        "Cut it into circles (like sausage)."
+      ],
+      "tip": ""
+    },
+    "u-mvxyg4yqz1": {
+      "title": "Pancakes",
+      "time": "",
+      "description": "",
+      "ingredients": [
+        "1 egg",
+        "1 tbsp sugar",
+        "A small pinch of salt",
+        "180 ml milk",
+        "1 tbsp vegetable oil",
+        "150 g flour",
+        "1 tsp baking powder",
+        "Condensed milk, to decorate",
+        "Ready-made caramel sauce, to decorate"
+      ],
+      "steps": [
+        "Break the egg. Take a big bowl and carefully break one egg into it. Add a tablespoon of sugar and a small pinch of salt. Whisk with a whisk or a fork for about 30–40 seconds, until the egg and sugar come together.",
+        "Add the milk and oil. Pour in 180 ml of milk, then add a tablespoon of vegetable oil. Mix well. The mixture will be runny - that is how it should be.",
+        "Add the flour. In a separate cup, mix 150 g of flour with one teaspoon of baking powder. Add the flour to the bowl with the milk and egg a little at a time: first half, mix, then the rest. Do not whisk for too long. The main thing is that no big dry lumps are left.",
+        "Check the batter. It should be quite thick, like sour cream. It should slowly run off the spoon in a wide ribbon, not pour like water. If it is too thick, add one tablespoon of milk. If it is too runny, add a little flour. Let the batter rest for 5 minutes.",
+        "Heat the frying pan. An adult helps here. Put the pan on the stove, turn on a medium-low heat and let it warm up for about 1–2 minutes. If the pan has a good coating, you will not need extra oil: there is already some in the batter.",
+        "Fry the first pancake. Spoon about two tablespoons of batter into the middle of the pan. You will get a small circle. Wait about 1.5–2 minutes. Bubbles will start to appear on top and the edges will look less wet. This is the sign that it is time to flip the pancake.",
+        "Flip it. An adult carefully slides a spatula under the pancake and flips it. Fry the other side for about 1 more minute, until golden. Move it to a plate. Repeat with the rest of the batter. The finished pancakes can be stacked in a pile.",
+        "Decorate with condensed milk and caramel. And this is the most fun job for Emil! Stack 3–4 pancakes in a pretty tower. First pour condensed milk over them so that it runs a little down the sides. Then add the ready-made caramel sauce. You can make patterns with a spoon or draw sweet stripes. There is no need to cook caramel at home."
+      ],
+      "tip": ""
     }
   },
   "fr": {
@@ -1119,6 +1221,139 @@
           "description": "Ajoute à la salade tiède du fromage râpé ou en petits morceaux selon ton goût et sers aussitôt."
         }
       ]
+    },
+    "mustard-pork-dinner": {
+      "title": "Côtelettes de porc à la moutarde et dîner express",
+      "description": "J’ai préparé ce dîner le 10 octobre 2026 pour moi et pour mon fils : des côtelettes de porc dorées à la moutarde, des pâtes au beurre, des tomates à l’ail et des toasts de pain de seigle à l’avocat. C’était très bon ! Pour deux personnes ; on peut garder quelques côtelettes pour des sandwichs.",
+      "time": "environ 30 minutes",
+      "tags": [
+        "porc",
+        "moutarde",
+        "côtelettes",
+        "rapide",
+        "pâtes",
+        "avocat"
+      ],
+      "ingredients": [
+        "Pour les côtelettes : filet de porc, 400–500 g",
+        "2 œufs",
+        "3–4 c. à soupe de farine",
+        "1/2 c. à café de moutarde forte",
+        "1 c. à café de paprika",
+        "Sel et poivre noir",
+        "Huile végétale pour la cuisson",
+        "Pour l’accompagnement : pâtes pour 2 personnes",
+        "Beurre",
+        "Fromage (facultatif)",
+        "Pour les tomates : 3 petites tomates allongées",
+        "Ail",
+        "Huile végétale",
+        "Sel et un peu de paprika",
+        "Pour les toasts : pain noir de type Borodinski (seigle)",
+        "1 avocat mûr",
+        "Sel et poivre noir",
+        "Un peu d’huile d’olive",
+        "Jus de citron (facultatif)"
+      ],
+      "steps": [
+        "Couper le filet de porc en travers des fibres en petits morceaux d’environ 1,5 cm d’épaisseur. Les aplatir légèrement.",
+        "Mélanger les œufs, la moutarde, le paprika, le sel, le poivre et 1 cuillère à soupe de farine.",
+        "Enrober les morceaux de viande du reste de la farine, puis les tremper dans la pâte aux œufs.",
+        "Faire dorer à feu moyen environ 3–4 minutes de chaque côté, selon l’épaisseur, jusqu’à ce que le porc soit bien cuit.",
+        "Cuire les pâtes. Ajouter du beurre et, si l’on veut, du fromage.",
+        "Couper les tomates en quartiers et les mélanger avec l’ail, l’huile, le sel et le paprika. Laisser reposer un moment.",
+        "Faire griller le pain de seigle dans une poêle sèche jusqu’à ce qu’il soit légèrement croustillant.",
+        "Écraser l’avocat à la fourchette, ajouter le sel, le poivre, un peu d’huile d’olive et, si l’on veut, du jus de citron. Étaler sur le pain chaud.",
+        "Servir les côtelettes chaudes avec les pâtes, les tomates et les toasts à l’avocat."
+      ],
+      "tip": "L’astuce : un peu de moutarde forte dans la pâte. Elle relève le goût, et le paprika aide à obtenir une belle croûte. Les côtelettes sont bonnes chaudes comme froides, les restes sont donc parfaits pour des sandwichs. Elles sont particulièrement bonnes avec du pain de seigle grillé à sec et de la tartinade d’avocat."
+    },
+    "u-mvxy1b9gzc": {
+      "title": "Rouleaux Oreo",
+      "time": "1 heure",
+      "description": "",
+      "ingredients": [
+        "Oreo - 16 ou plus",
+        "Lait - 30 ml ou plus"
+      ],
+      "steps": [
+        "Séparer la crème des biscuits.",
+        "Mettre les biscuits dans un sac en plastique.",
+        "Écraser les biscuits en miettes.",
+        "Mettre les biscuits dans une assiette.",
+        "Mélanger les biscuits avec du lait (25 ml+).",
+        "Prendre la pâte (biscuits + lait = pâte).",
+        "Étaler la pâte.",
+        "Prendre la crème.",
+        "La mettre dans une assiette.",
+        "La mélanger avec du lait (5-10 ml+).",
+        "Prendre ce mélange.",
+        "L'étaler sur la pâte.",
+        "Remettre cette combinaison.",
+        "Et aussi l'envelopper dans du film alimentaire.",
+        "Mettre au congélateur pendant une heure.",
+        "Sortir du congélateur.",
+        "Couper en rondelles (comme du saucisson)."
+      ],
+      "tip": ""
+    },
+    "u-mvxyg4yqz1": {
+      "title": "Pancakes",
+      "time": "",
+      "description": "",
+      "ingredients": [
+        "1 œuf",
+        "1 c. à soupe de sucre",
+        "Une petite pincée de sel",
+        "180 ml de lait",
+        "1 c. à soupe d’huile végétale",
+        "150 g de farine",
+        "1 c. à café de levure chimique",
+        "Lait concentré sucré, pour décorer",
+        "Sauce caramel toute prête, pour décorer"
+      ],
+      "steps": [
+        "On casse l’œuf. Prendre un grand bol et y casser délicatement un œuf. Ajouter une cuillère à soupe de sucre et une petite pincée de sel. Battre avec un fouet ou une fourchette pendant environ 30 à 40 secondes, jusqu’à ce que l’œuf et le sucre soient bien mélangés.",
+        "On ajoute le lait et l’huile. Verser 180 ml de lait, puis ajouter une cuillère à soupe d’huile végétale. Bien mélanger. Le mélange sera liquide - c’est normal.",
+        "On ajoute la farine. Dans une tasse à part, mélanger 150 g de farine avec une cuillère à café de levure chimique. Ajouter peu à peu la farine dans le bol avec le lait et l’œuf : d’abord la moitié, on mélange, puis le reste. Inutile de battre trop longtemps. L’essentiel est qu’il ne reste pas de gros grumeaux secs.",
+        "On vérifie la pâte. Elle doit être assez épaisse, comme de la crème aigre. Elle doit couler lentement de la cuillère en un large ruban, et non couler comme de l’eau. Si elle est trop épaisse, ajouter une cuillère à soupe de lait. Si elle est trop liquide, ajouter un peu de farine. Laisser reposer la pâte 5 minutes.",
+        "On chauffe la poêle. Ici, un adulte aide. Poser la poêle sur la plaque, mettre le feu moyen-doux et la laisser chauffer environ 1 à 2 minutes. Si le revêtement est bon, pas besoin d’huile en plus : il y en a déjà dans la pâte.",
+        "On fait cuire le premier pancake. Verser environ deux cuillères à soupe de pâte au centre de la poêle. On obtient un petit rond. Attendre environ 1,5 à 2 minutes. Des bulles apparaissent sur le dessus et les bords paraissent moins mouillés. C’est le signe qu’il est temps de retourner le pancake.",
+        "On retourne. Un adulte glisse délicatement la spatule sous le pancake et le retourne. Faire cuire l’autre face encore 1 minute environ, jusqu’à ce qu’elle soit dorée. Déposer sur une assiette. Recommencer avec le reste de la pâte. Les pancakes cuits peuvent être empilés.",
+        "On décore avec du lait concentré et du caramel. Et c’est le travail le plus amusant pour Émile ! Empiler 3 ou 4 pancakes en une jolie tour. D’abord verser du lait concentré pour qu’il coule un peu sur les côtés. Puis ajouter la sauce caramel toute prête. On peut faire des dessins avec une cuillère ou tracer de petites rayures sucrées. Pas besoin de préparer du caramel maison."
+      ],
+      "tip": ""
+    }
+  },
+  "ru": {
+    "u-mvxy1b9gzc": {
+      "title": "Роллы орео",
+      "time": "1 час",
+      "description": "",
+      "ingredients": [
+        "Орео - 16 или больше",
+        "Молоко - 30 мл или больше"
+      ],
+      "steps": [
+        "Отделить крем от печенья.",
+        "Положить печенье в пластиковый пакет.",
+        "Размельчить печенье до крошек.",
+        "Положить печенье в тарелку.",
+        "Размешать печенье с молоком (25 мл+).",
+        "Взять тесто (печенье + молоко = тесто).",
+        "Раскатать тесто.",
+        "Взять крем.",
+        "Положить в тарелку.",
+        "Размешать с молоком (5-10 мл+).",
+        "Взять эту смесь.",
+        "Раскатать её на тесто.",
+        "Вернуть эту комбинацию.",
+        "И ещё завернуть её в плёнку.",
+        "Поставить в морозильник на один час.",
+        "Убрать из морозильника.",
+        "Разрезать на кружочки (как колбасу)."
+      ],
+      "tip": ""
     }
   }
 }

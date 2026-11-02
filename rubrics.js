@@ -284,7 +284,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     else if (st === 'loading' || !st) inner = `<div class="rubNote">${esc(x.loading)}</div>`;
     else if (st === 'error') inner = `<div class="rubNote">${esc(x.loadError)}</div>`;
     else if (!list.length) inner = `<div class="rubNote">${esc(x.empty)}</div>`;
-    else inner = `<div class="grid">${list.map(r => `<article class="card"><img src="${esc(pic(r.image, 700) || 'assets/quick-recipes.png')}" alt="${esc(r.title)}" onerror="this.onerror=null;this.src='assets/quick-recipes.png'"><div class="cardBody"><div class="badge">${esc(aName(r.author))}</div>${r.pending ? `<div class="rubDrawing">${esc(x.drawing)}</div>` : ''}<h2>${esc(r.title)}</h2><div class="meta">${esc(r.time || '')}</div><div class="actions"><button class="primary" data-r="${esc(r.id)}">${esc(x.open)}</button></div></div></article>`).join('')}</div>`;
+    else inner = `<div class="grid">${list.map(r0 => { const r = { ...r0, ...(TRANSLATIONS[lang] && TRANSLATIONS[lang][r0.id] ? { title: TRANSLATIONS[lang][r0.id].title || r0.title, time: TRANSLATIONS[lang][r0.id].time !== undefined ? TRANSLATIONS[lang][r0.id].time : r0.time } : {}) }; return `<article class="card"><img src="${esc(pic(r.image, 700) || 'assets/quick-recipes.png')}" alt="${esc(r.title)}" onerror="this.onerror=null;this.src='assets/quick-recipes.png'"><div class="cardBody"><div class="badge">${esc(aName(r.author))}</div>${r.pending ? `<div class="rubDrawing">${esc(x.drawing)}</div>` : ''}<h2>${esc(r.title)}</h2><div class="meta">${esc(r.time || '')}</div><div class="actions"><button class="primary" data-r="${esc(r.id)}">${esc(x.open)}</button></div></div></article>`; }).join('')}</div>`;
     box.innerHTML = `<div class="rubHead"><h3>${esc(aName(openId))}</h3><button type="button" class="primary rubAdd" id="rubAddBtn">${esc(x.add)}</button></div>${inner}`;
     document.getElementById('rubAddBtn').onclick = () => openForm(openId);
     box.querySelectorAll('button[data-r]').forEach(b => b.onclick = () => {
@@ -308,7 +308,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
     viewing = raw && raw.user ? raw : null;
     if (viewing) {
       document.getElementById('mCat').textContent = aName(viewing.author);
-      document.getElementById('translationNotice').textContent = '';
+      document.getElementById('translationNotice').textContent = lang !== 'ru' && !(TRANSLATIONS[lang] && TRANSLATIONS[lang][viewing.id]) ? t('pending') : '';
     }
     paintDel();
   };
@@ -514,6 +514,7 @@ const GV_RUBRICS_URL = 'https://script.google.com/macros/s/AKfycbw_zQgshwX7G2_jL
   /* ---------- язык и запуск ---------- */
   const baseSetLanguage = setLanguage;
   setLanguage = function (next) {
+    if (lang && viewing && UI[next]) { const keep = lang; lang = next; viewing.category = aName(viewing.author); lang = keep; }
     baseSetLanguage(next);
     paint();
     if (viewing) paintDel();

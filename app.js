@@ -13,7 +13,7 @@ let RECIPES=[],TRANSLATIONS={},currentCategory='',currentRecipe=null,lang='ru';
 const $=id=>document.getElementById(id),grid=$('grid'),search=$('search'),chips=$('chips');
 const esc=(v='')=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const t=k=>UI[lang][k];
-function translated(r){const tr=lang==='ru'?null:TRANSLATIONS[lang]?.[r.id];return tr?{...r,...tr}:r;}
+function translated(r){const tr=TRANSLATIONS[lang]?.[r.id];return tr?{...r,...tr}:r;}
 function category(c){return UI[lang].categories[c]||c;}
 function normalize(s){return String(s).toLocaleLowerCase(lang).normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
 function renderChips(){chips.innerHTML='';['',...new Set(RECIPES.map(r=>r.category).filter(Boolean))].forEach(c=>{const b=document.createElement('button');b.className='chip'+(c===currentCategory?' active':'');b.textContent=c?category(c):t('all');b.setAttribute('aria-pressed',String(c===currentCategory));b.onclick=()=>{currentCategory=c;renderChips();render();};chips.appendChild(b);});}
